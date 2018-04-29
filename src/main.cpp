@@ -2,7 +2,7 @@
 #include "map.cpp"
 
 int main(){
-	Map x(30, 30);
+	Map x("../maps/01.dat");
 
 	x.printGrid();
 

@@ -1,26 +1,30 @@
-#include <string>
-
-using namespace std;
-
 class Object{
 	private:
-		string tagName;
+		char tagName;
 		int posX;
 		int posY;
 	public:
 		Object(){}
 
-		Object(string tagName_){
+		Object(char tagName_){
 			tagName = tagName_;
 		}
 
-		Object(string tagName_, int posX_, int posY_){
+		Object(char tagName_, int posX_, int posY_){
 			tagName = tagName_;
 			posX = posX_;
 			posY = posY_;
 		}
 
-		string getTagName(){
+		char getTagName(){
 			return tagName;
+		}
+
+		int getX(){
+			return posX;
+		}
+
+		int getY(){
+			return posY;
 		}
 };
