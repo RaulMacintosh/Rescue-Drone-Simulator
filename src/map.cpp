@@ -18,6 +18,7 @@ class Map{
 		int n;
 	public:
 		Map(char* path){
+			setlocale(LC_CTYPE, "");
 			ifstream file;
 			file.open(path);
 			string output;
@@ -66,7 +67,7 @@ class Map{
 								Object cell(' ', i, j);
 								row.push_back(cell);
 							}else if(output == "1"){
-								Object cell(L'\u25A0', i, j);
+								Object cell(L'\u25AE', i, j);
 								row.push_back(cell);
 							}else if(output == string(1, aim.getTagName())){
 								Object cell(aim.getTagName(), i, j);
@@ -86,9 +87,6 @@ class Map{
 		}
 
 		void printGrid(){
-			setlocale(LC_CTYPE, "");
-			wchar_t a = L'\u25A0';
-			
 			wcout << " _______________" << endl;
 			for (int i = 0; i < m; i++){
 				wcout << "|";

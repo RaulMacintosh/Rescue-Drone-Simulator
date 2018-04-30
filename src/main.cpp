@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "map.cpp"
 
-int main(){
-	Map x("../maps/01.dat");
+int main(int argc, char* argv[]){
+	Map x(argv[1]);
 
 	x.printGrid();
 
