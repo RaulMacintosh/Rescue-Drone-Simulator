@@ -3,6 +3,8 @@
 #include <stdlib.h> 
 #include <string>
 #include <fstream>
+#include <iostream>
+#include <locale>
 #include "object.cpp"
 
 using namespace std;
@@ -64,7 +66,7 @@ class Map{
 								Object cell(' ', i, j);
 								row.push_back(cell);
 							}else if(output == "1"){
-								Object cell(219, i, j);
+								Object cell(L'\u25A0', i, j);
 								row.push_back(cell);
 							}else if(output == string(1, aim.getTagName())){
 								Object cell(aim.getTagName(), i, j);
@@ -84,14 +86,17 @@ class Map{
 		}
 
 		void printGrid(){
-			printf("________________________________\n");
+			setlocale(LC_CTYPE, "");
+			wchar_t a = L'\u25A0';
+			
+			wcout << " _______________" << endl;
 			for (int i = 0; i < m; i++){
-				printf("|");
+				wcout << "|";
 				for (int j = 0; j < n; j++){
-					printf("%c", grid[i][j].getTagName());
+					wcout << grid[i][j].getTagName();
 				}
-				printf("|\n");
+				wcout << "|" << endl;
 			}
-			printf("|_______________________________|\n");
+			wcout << "|_______________|" << endl;
 		}
 };

@@ -1,22 +1,25 @@
+#include <iostream>
+#include <locale>
+
 class Object{
 	private:
-		char tagName;
+		wchar_t tagName;
 		int posX;
 		int posY;
 	public:
 		Object(){}
 
-		Object(char tagName_){
+		Object(wchar_t tagName_){
 			tagName = tagName_;
 		}
 
-		Object(char tagName_, int posX_, int posY_){
+		Object(wchar_t tagName_, int posX_, int posY_){
 			tagName = tagName_;
 			posX = posX_;
 			posY = posY_;
 		}
 
-		char getTagName(){
+		wchar_t getTagName(){
 			return tagName;
 		}
 
