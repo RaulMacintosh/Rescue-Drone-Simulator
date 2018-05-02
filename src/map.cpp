@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <locale>
+#include <unistd.h>
 #include "object.cpp"
 
 using namespace std;
@@ -17,6 +18,8 @@ class Map{
 		int m;
 		int n;
 	public:
+		Map(){}
+
 		Map(char* path){
 			setlocale(LC_CTYPE, "");
 			ifstream file;
@@ -82,19 +85,45 @@ class Map{
 			file.close();
 		}
 
-		Object getDrone(int index){
-			return drones[index];
+		Object* getDrone(int index){
+			return &drones[index];
+		}
+
+		Object getObject(int x_, int y_){
+			return grid[x_][y_];
+		}
+
+		void updateMap(){
+			for (int i = 0; i < m; i++){
+				for (int j = 0; j < n; j++){
+					if (grid[i][j].getTagName() == 'A' || grid[i][j].getTagName() == 'B' || grid[i][j].getTagName() == 'C'){
+						grid[i][j] = ' ';
+					}
+				}
+			}
+
+			for (int i = 0; i < drones.size(); i++){
+				Object d = drones[i];
+				grid[d.getX()][d.getY()] = d;
+			}
 		}
 
 		void printGrid(){
-			wcout << " _______________\n" << flush;
+			updateMap();
+			wcout << " _______________" << endl;
 			for (int i = 0; i < m; i++){
-				wcout << "|" << flush;
+				wcout << "|";
 				for (int j = 0; j < n; j++){
-					wcout << grid[i][j].getTagName() << flush;
+					wcout << grid[i][j].getTagName();
 				}
 				wcout << "|" << endl;
 			}
-			wcout << "|_______________|\n" << flush;
+			wcout << "|_______________|" << endl;
+
+			for (int i = 0; i < m+2; i++){
+				wcout << "\e[A";
+			}
+
+			usleep(500000);
 		}
 };

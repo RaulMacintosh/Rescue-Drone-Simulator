@@ -32,18 +32,18 @@ class Object{
 		}
 
 		void moveLeft(){
-			posX -= 1;
-		}
-
-		void moveRight(){
-			posX += 1;
-		}
-
-		void moveDown(){
 			posY -= 1;
 		}
 
-		void moveUp(){
+		void moveRight(){
 			posY += 1;
+		}
+
+		void moveDown(){
+			posX -= 1;
+		}
+
+		void moveUp(){
+			posX += 1;
 		}
 };

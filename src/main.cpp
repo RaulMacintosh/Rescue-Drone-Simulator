@@ -1,15 +1,28 @@
 #include <stdio.h>
 #include <thread>
+#include <unistd.h>
 #include "map.cpp"
-#include "object.cpp"
 
 using namespace std;
 
 Map map;
 bool foundObject = false;
 
-void search(int drone){
-	
+void search(int index){
+	while(true){
+		usleep(1000000);
+		Object* drone = map.getDrone(index);
+
+		if(drone->getX() < 14){
+			Object object = map.getObject(drone->getX(), drone->getY()+1);
+			
+			if(object.getTagName() == ' '){
+				drone->moveRight();
+			}
+		}else{
+			break;
+		}
+	}
 }
 
 void printMap(){
@@ -24,9 +37,9 @@ int main(int argc, char* argv[]){
 	map = newMap;
 
 	thread threadMap(printMap);
-	thread threadDrone1(0);
-	thread threadDrone2(1);
-	thread threadDrone3(2);
+	thread threadDrone1(search, 0);
+	thread threadDrone2(search, 1);
+	thread threadDrone3(search, 2);
 
 	threadDrone1.join();
 	threadDrone2.join();
