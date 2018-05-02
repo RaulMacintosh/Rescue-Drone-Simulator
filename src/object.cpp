@@ -30,4 +30,20 @@ class Object{
 		int getY(){
 			return posY;
 		}
+
+		void moveLeft(){
+			posX -= 1;
+		}
+
+		void moveRight(){
+			posX += 1;
+		}
+
+		void moveDown(){
+			posY -= 1;
+		}
+
+		void moveUp(){
+			posY += 1;
+		}
 };

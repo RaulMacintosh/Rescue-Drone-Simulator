@@ -82,19 +82,19 @@ class Map{
 			file.close();
 		}
 
-		void addDrone(Object drone){
-			drones.push_back(drone);
+		Object getDrone(int index){
+			return drones[index];
 		}
 
 		void printGrid(){
-			wcout << " _______________" << endl;
+			wcout << " _______________\n" << flush;
 			for (int i = 0; i < m; i++){
-				wcout << "|";
+				wcout << "|" << flush;
 				for (int j = 0; j < n; j++){
-					wcout << grid[i][j].getTagName();
+					wcout << grid[i][j].getTagName() << flush;
 				}
 				wcout << "|" << endl;
 			}
-			wcout << "|_______________|" << endl;
+			wcout << "|_______________|\n" << flush;
 		}
 };
