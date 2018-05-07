@@ -43,13 +43,13 @@ class Map{
 						file >> output;
 						int y = atoi(output.c_str());
 
-						Object drone(('A' + i), x, y);
+						Object drone(('A' + i), x, y, 0.0);
 						drones.push_back(drone);
 					}
 
 					file >> output;
 					file >> output;
-					Object aim_(output.at(0));
+					Object aim_(output.at(0), 0.0);
 					aim = aim_;
 
 					file >> output;
@@ -63,17 +63,17 @@ class Map{
 						for (int j = 0; j < n; j++){
 							file >> output;
 							if (output == "D"){
-								Object cell(drones[dronesQtd-1].getTagName(), i, j);
+								Object cell(drones[dronesQtd-1].getTagName(), i, j, drones[dronesQtd-1].getProbability());
 								row.push_back(cell);
 								dronesQtd -= 1;
 							}else if(output == "0"){
-								Object cell(' ', i, j);
+								Object cell(' ', i, j, 1.0);
 								row.push_back(cell);
 							}else if(output == "1"){
-								Object cell(L'\u25AE', i, j);
+								Object cell(L'\u25AE', i, j, 0.0);
 								row.push_back(cell);
 							}else if(output == string(1, aim.getTagName())){
-								Object cell(aim.getTagName(), i, j);
+								Object cell(aim.getTagName(), i, j, aim.getProbability());
 								row.push_back(cell);
 							}
 						}
@@ -97,7 +97,9 @@ class Map{
 			for (int i = 0; i < m; i++){
 				for (int j = 0; j < n; j++){
 					if (grid[i][j].getTagName() == 'A' || grid[i][j].getTagName() == 'B' || grid[i][j].getTagName() == 'C'){
-						grid[i][j] = ' ';
+						// Ajustar isso pra mudar a probabilidade conforme os drones passarem por aqui
+						Object cell(' ', i, j, 1.0);
+						grid[i][j] = cell;
 					}
 				}
 			}
