@@ -14,6 +14,7 @@ class Map{
 	private:
 		vector<Object> drones;
 		vector< vector<Object> > grid;
+		vector<Object> objects;
 		Object aim;
 		int m;
 		int n;
@@ -53,6 +54,19 @@ class Map{
 					aim = aim_;
 
 					file >> output;
+					file >> output;
+					int objectsQtd = atoi(output.c_str());
+
+					for (int i = 0; i < objectsQtd; i++){
+						file >> output;
+						file >> output;
+
+						file >> output;
+						Object object_(output.at(0), 0.0);
+						objects.push_back(object_);
+					}
+
+					file >> output;
 					m = atoi(output.c_str());
 
 					file >> output;
@@ -75,6 +89,13 @@ class Map{
 							}else if(output == string(1, aim.getTagName())){
 								Object cell(aim.getTagName(), i, j, aim.getProbability());
 								row.push_back(cell);
+							}else{
+								for (int k = 0; k < objectsQtd; k++){
+									if (output == string(1, objects[k].getTagName())){
+										Object cell(objects[k].getTagName(), i, j, objects[k].getProbability());
+										row.push_back(cell);
+									}
+								}
 							}
 						}
 						grid.push_back(row);
