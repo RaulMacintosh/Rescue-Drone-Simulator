@@ -62,20 +62,20 @@ class Map{
 						vector<Object> row;
 						for (int j = 0; j < n; j++){
 							file >> output;
-							if (output == "D"){
+							if (output == "D"){ // If is a Drone
 								Object cell(drones[dronesQtd-1].getTagName(), i, j, drones[dronesQtd-1].getProbability());
 								row.push_back(cell);
 								dronesQtd -= 1;
-							}else if(output == "0"){
+							}else if(output == "0"){ // If is a empty cell
 								Object cell(' ', i, j, 1.0);
 								row.push_back(cell);
-							}else if(output == "1"){
+							}else if(output == "1"){ // If is a wall
 								Object cell(L'\u25AE', i, j, 0.0);
 								row.push_back(cell);
-							}else if(output == string(1, aim.getTagName())){
+							}else if(output == string(1, aim.getTagName())){ // If is the aim
 								Object cell(aim.getTagName(), i, j, aim.getProbability());
 								row.push_back(cell);
-							}else{
+							}else{ // If is other objects
 								Object cell(output.at(0), i, j, 0.0);
 								row.push_back(cell);
 							}
@@ -92,21 +92,11 @@ class Map{
 			return &drones[index];
 		}
 
-		Object getObject(int x_, int y_){
-			return grid[x_][y_];
+		Object* getObject(int x_, int y_){
+			return &grid[x_][y_];
 		}
 
 		void updateMap(){
-			for (int i = 0; i < m; i++){
-				for (int j = 0; j < n; j++){
-					if (grid[i][j].getTagName() == 'A' || grid[i][j].getTagName() == 'B' || grid[i][j].getTagName() == 'C'){
-						// Ajustar isso pra mudar a probabilidade conforme os drones passarem por aqui
-						Object cell(' ', i, j, 1.0);
-						grid[i][j] = cell;
-					}
-				}
-			}
-
 			for (int i = 0; i < drones.size(); i++){
 				Object d = drones[i];
 				grid[d.getX()][d.getY()] = d;
@@ -129,6 +119,25 @@ class Map{
 				wcout << "\e[A";
 			}
 
-			usleep(500000);
+			usleep(250000);
+		}
+		
+		void updateProbabilities(){
+			for(int i = 0; i < m; i++){
+				for(int j = 0; j < n; j++){
+					double currentProbability = grid[i][j].getProbability();
+					if(currentProbability > 0.0 && currentProbability < 1.0){
+						grid[i][j].setProbability(currentProbability + 0.1);
+					}
+				}
+			}
+		}
+		
+		int getM(){
+			return m;
+		}
+		
+		int getN(){
+			return n;
 		}
 };

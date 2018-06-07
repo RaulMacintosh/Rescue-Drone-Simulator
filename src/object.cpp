@@ -25,6 +25,10 @@ class Object{
 		wchar_t getTagName(){
 			return tagName;
 		}
+		
+		wchar_t setTagName(wchar_t tN){
+			return tagName = tN;
+		}
 
 		int getX(){
 			return posX;
@@ -50,11 +54,11 @@ class Object{
 			posY += 1;
 		}
 
-		void moveDown(){
+		void moveUp(){
 			posX -= 1;
 		}
 
-		void moveUp(){
+		void moveDown(){
 			posX += 1;
 		}
 };
