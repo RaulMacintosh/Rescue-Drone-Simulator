@@ -1,6 +1,7 @@
 #include <vector>
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <time.h>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -25,6 +26,7 @@ class Map{
 			ifstream file;
 			file.open(path);
 			string output;
+			srand(time(NULL));
 
 			while(!file.eof()){
 				file >> output;
@@ -42,14 +44,15 @@ class Map{
 
 						file >> output;
 						int y = atoi(output.c_str());
-
-						Object drone(('A' + i), x, y, 0.0);
+						int droneFeature = (rand() % 10 + 1);
+						Object drone(('A' + i), x, y, 0.0, droneFeature);
 						drones.push_back(drone);
 					}
 
 					file >> output;
 					file >> output;
-					Object aim_(output.at(0), 0.0);
+					int aimFeature = (rand() % 10 + 10);
+					Object aim_(output.at(0), 1.0, aimFeature);
 					aim = aim_;
 
 					file >> output;
@@ -63,20 +66,23 @@ class Map{
 						for (int j = 0; j < n; j++){
 							file >> output;
 							if (output == "D"){ // If is a Drone
-								Object cell(drones[dronesQtd-1].getTagName(), i, j, drones[dronesQtd-1].getProbability());
+								Object cell(drones[dronesQtd-1].getTagName(), i, j, drones[dronesQtd-1].getProbability(), drones[dronesQtd-1].getFeature());
 								row.push_back(cell);
 								dronesQtd -= 1;
 							}else if(output == "0"){ // If is a empty cell
-								Object cell(' ', i, j, 1.0);
+								int emptyFeature = (rand() % 10 + 20);
+								Object cell(' ', i, j, 1.0, emptyFeature);
 								row.push_back(cell);
 							}else if(output == "1"){ // If is a wall
-								Object cell(L'\u25AE', i, j, 0.0);
+								int wallFeature = (rand() % 10 + 30);
+								Object cell(L'\u25AE', i, j, 0.0, wallFeature);
 								row.push_back(cell);
 							}else if(output == string(1, aim.getTagName())){ // If is the aim
-								Object cell(aim.getTagName(), i, j, aim.getProbability());
+								Object cell(aim.getTagName(), i, j, aim.getProbability(), aim.getFeature());
 								row.push_back(cell);
 							}else{ // If is other objects
-								Object cell(output.at(0), i, j, 0.0);
+								int objectFeature = (rand() % 10 + 40);
+								Object cell(output.at(0), i, j, 1.0, objectFeature);
 								row.push_back(cell);
 							}
 						}
@@ -118,7 +124,7 @@ class Map{
 			for (int i = 0; i < m+2; i++){
 				wcout << "\e[A";
 			}
-
+			
 			usleep(250000);
 		}
 		

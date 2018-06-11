@@ -5,21 +5,24 @@ class Object{
 	private:
 		wchar_t tagName;
 		double probability;
+		int feature;
 		int posX;
 		int posY;
 	public:
 		Object(){}
 
-		Object(wchar_t tagName_, double prob){
+		Object(wchar_t tagName_, double prob, int fea){
 			tagName = tagName_;
 			probability = prob;
+			feature = fea;
 		}
 
-		Object(wchar_t tagName_, int posX_, int posY_, double prob){
+		Object(wchar_t tagName_, int posX_, int posY_, double prob, int fea){
 			tagName = tagName_;
 			posX = posX_;
 			posY = posY_;
 			probability = prob;
+			feature = fea;
 		}
 
 		wchar_t getTagName(){
@@ -44,6 +47,14 @@ class Object{
 
 		double getProbability(){
 			return probability;
+		}
+		
+		void setFeature(int fea){
+			feature = fea;
+		}
+		
+		int getFeature(){
+			return feature;
 		}
 
 		void moveLeft(){
