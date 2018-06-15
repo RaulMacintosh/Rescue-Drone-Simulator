@@ -19,6 +19,13 @@ class Map{
 		int m;
 		int n;
 	public:
+		vector<Object*> visitedCells;
+		
+		// Classes
+		vector<Object*> knownWalls;
+		vector<Object*> knownObjects;
+		vector<Object*> knownEmptyCells;
+		
 		Map(){}
 
 		Map(char* path){
@@ -44,14 +51,14 @@ class Map{
 
 						file >> output;
 						int y = atoi(output.c_str());
-						int droneFeature = (rand() % 10 + 1);
+						int droneFeature = (rand() % 10 + 1); // Ranges from 1 to 10
 						Object drone(('A' + i), x, y, 0.0, droneFeature);
 						drones.push_back(drone);
 					}
 
 					file >> output;
 					file >> output;
-					int aimFeature = (rand() % 10 + 10);
+					int aimFeature = (rand() % 10 + 21); // Ranges from 21 to 30
 					Object aim_(output.at(0), 1.0, aimFeature);
 					aim = aim_;
 
@@ -70,18 +77,18 @@ class Map{
 								row.push_back(cell);
 								dronesQtd -= 1;
 							}else if(output == "0"){ // If is a empty cell
-								int emptyFeature = (rand() % 10 + 20);
+								int emptyFeature = (rand() % 10 + 11); // Ranges from 11 to 20
 								Object cell(' ', i, j, 1.0, emptyFeature);
 								row.push_back(cell);
 							}else if(output == "1"){ // If is a wall
-								int wallFeature = (rand() % 10 + 30);
+								int wallFeature = (rand() % 10 + 31); // Ranges from 31 to 40
 								Object cell(L'\u25AE', i, j, 0.0, wallFeature);
 								row.push_back(cell);
 							}else if(output == string(1, aim.getTagName())){ // If is the aim
 								Object cell(aim.getTagName(), i, j, aim.getProbability(), aim.getFeature());
 								row.push_back(cell);
 							}else{ // If is other objects
-								int objectFeature = (rand() % 10 + 40);
+								int objectFeature = (rand() % 10 + 41); // Ranges from 41 to 50
 								Object cell(output.at(0), i, j, 1.0, objectFeature);
 								row.push_back(cell);
 							}
@@ -98,6 +105,12 @@ class Map{
 			return &drones[index];
 		}
 
+		void setObject(Object* obj){
+			int x_ = obj->getX();
+			int y_ = obj->getY();
+			grid[x_][y_] = *obj;
+		}
+		
 		Object* getObject(int x_, int y_){
 			return &grid[x_][y_];
 		}
@@ -110,7 +123,6 @@ class Map{
 		}
 
 		void printGrid(){
-			updateMap();
 			wcout << " _______________" << endl;
 			for (int i = 0; i < m; i++){
 				wcout << "|";
@@ -124,15 +136,13 @@ class Map{
 			for (int i = 0; i < m+2; i++){
 				wcout << "\e[A";
 			}
-			
-			usleep(250000);
 		}
 		
 		void updateProbabilities(){
 			for(int i = 0; i < m; i++){
 				for(int j = 0; j < n; j++){
 					double currentProbability = grid[i][j].getProbability();
-					if(currentProbability > 0.0 && currentProbability < 1.0){
+					if(currentProbability > 0.0 && currentProbability < 0.9){
 						grid[i][j].setProbability(currentProbability + 0.1);
 					}
 				}
