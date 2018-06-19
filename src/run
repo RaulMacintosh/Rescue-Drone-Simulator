@@ -1,0 +1,68 @@
+#!/bin/bash
+
+
+# Experiments for maps with only the aim object
+for i in {1..7}
+do
+	for j in {5..15..5}
+	do
+		for k in {100..300..100}
+		do
+			for l in {1..30}
+			do
+			   ./main ../maps/Only_the_aim/0$i.dat $j $k ../results/Only_the_aim/0$i/teste-$j-$k-$l.txt
+			done
+		done
+	done
+done
+
+# Experiments for maps with strange objects
+for i in {1..7}
+do
+	for j in {5..15..5}
+	do
+		for k in {100..300..100}
+		do
+			for l in {1..30}
+			do
+			   ./main ../maps/With_objects/0$i.dat $j $k ../results/With_objects/0$i/teste-$j-$k-$l.txt
+			done
+		done
+	done
+done
+
+# Test 2 for maps with strange objects, with time 5 and max of 100 iterations to finish
+#for i in {1..30}
+#do
+#   ./main ../maps/With_objects/02.dat 5 100 ../results/With_objects/02/teste_5_100_$i.txt
+#done
+
+# Test 3 for maps with strange objects, with time 5 and max of 100 iterations to finish
+#for i in {1..30}
+#do
+#   ./main ../maps/With_objects/03.dat 5 100 ../results/With_objects/03/teste_5_100_$i.txt
+#done
+
+# Test 4 for maps with strange objects, with time 5 and max of 100 iterations to finish
+#for i in {1..30}
+#do
+#   ./main ../maps/With_objects/04.dat 5 100 ../results/With_objects/04/teste_5_100_$i.txt
+#done
+
+# Test 5 for maps with strange objects, with time 5 and max of 100 iterations to finish
+#for i in {1..30}
+#do
+#   ./main ../maps/With_objects/05.dat 5 100 ../results/With_objects/05/teste_5_100_$i.txt
+#done
+
+# Test 6 for maps with strange objects, with time 5 and max of 100 iterations to finish
+#for i in {1..30}
+#do
+#   ./main ../maps/With_objects/06.dat 5 100 ../results/With_objects/06/teste_5_100_$i.txt
+#done
+
+# Test 7 for maps with strange objects, with time 5 and max of 100 iterations to finish
+#for i in {1..30}
+#do
+#   ./main ../maps/With_objects/07.dat 5 100 ../results/With_objects/07/teste_5_100_$i.txt
+#done

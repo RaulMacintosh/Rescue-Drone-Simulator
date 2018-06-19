@@ -6,6 +6,7 @@ class Object{
 		wchar_t tagName;
 		double probability;
 		int feature;
+		int distance;
 		int posX;
 		int posY;
 	public:
@@ -31,6 +32,14 @@ class Object{
 		
 		wchar_t setTagName(wchar_t tN){
 			return tagName = tN;
+		}
+		
+		void setDistance(int d){
+			distance = d;
+		}
+		
+		int getDistance(){
+			return distance;
 		}
 
 		int getX(){

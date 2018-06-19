@@ -156,4 +156,14 @@ class Map{
 		int getN(){
 			return n;
 		}
+		
+		void printOutput(string fileName, string text, int iterationsRemaining, int memoryTime){
+			ofstream file;
+			file.open(fileName);
+			file << text;
+			file << iterationsRemaining;
+			file << "\nMemory time: ";
+			file << memoryTime;
+			file.close();
+		}
 };
