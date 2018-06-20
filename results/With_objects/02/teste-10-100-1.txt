@@ -1,0 +1,4 @@
+Aim not found
+Aim not classified
+Iterations passed: 100
+Memory time: 10

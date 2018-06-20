@@ -1,0 +1,4 @@
+Aim found
+Classified as: Wall
+Iterations passed: 300
+Memory time: 5
